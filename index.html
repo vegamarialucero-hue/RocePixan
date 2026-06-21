@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rocé Pixan — Ashtanga Yoga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --night: #0e1520;
+    --night-mid: #161f2e;
+    --night-soft: #1e2d42;
+    --sand: #e8dfd0;
+    --sand-light: #f4f0ea;
+    --gold: #c9a96e;
+    --gold-light: #dfc08a;
+    --white: #faf8f5;
+    --muted: #8a9ab0;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--night);
+    color: var(--sand);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background: transparent;
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(14,21,32,0.95); backdrop-filter: blur(8px); }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(201,169,110,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-text {
+    padding-top: 5rem;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .hero-cta:hover {
+    background: var(--gold);
+    color: var(--night);
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+  }
+
+  .hero-circle {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero-circle::before {
+    content: '';
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .hero-symbol {
+    font-family: var(--serif);
+    font-size: 8rem;
+    color: rgba(201,169,110,0.15);
+    user-select: none;
+    line-height: 1;
+  }
+
+  .hero-stat {
+    position: absolute;
+    text-align: center;
+  }
+  .hero-stat:nth-child(2) { top: 15%; right: -10%; }
+  .hero-stat:nth-child(3) { bottom: 20%; left: -5%; }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SECTION SHARED */
+  section { padding: 7rem 4rem; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold-light); }
+
+  /* SOBRE EL MÉTODO */
+  .metodo {
+    background: var(--night-mid);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .metodo-body {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  .metodo-body p + p { margin-top: 1.2rem; }
+
+  .metodo-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .feature-item {
+    border-top: 1px solid rgba(201,169,110,0.2);
+    padding-top: 1.2rem;
+  }
+
+  .feature-item h4 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-item p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CLASES */
+  .clases { background: var(--night); }
+
+  .clases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .clase-card {
+    border: 1px solid rgba(201,169,110,0.15);
+    padding: 2.5rem 2rem;
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .clase-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .clase-card:hover { border-color: rgba(201,169,110,0.4); }
+  .clase-card:hover::before { transform: scaleX(1); }
+
+  .clase-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .clase-name {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .clase-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .clase-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(138,154,176,0.15);
+    padding-top: 1.5rem;
+  }
+
+  .clase-detail span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .clase-detail span strong {
+    color: var(--sand);
+    font-weight: 400;
+  }
+
+  /* TESTIMONIOS */
+  .testimonios {
+    background: var(--night-soft);
+  }
+
+  .testimonios-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .testimonios-body {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  .testimonios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .testimonio-card {
+    background: var(--night-mid);
+    padding: 2rem;
+    border-left: 2px solid var(--gold);
+  }
+
+  .testimonio-text {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--sand);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .testimonio-author {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .testimonio-location {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* CONTACTO */
+  .contacto {
+    background: var(--night);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .contacto-body {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+  }
+
+  .contacto-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contacto-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--sand);
+    font-size: 0.9rem;
+    transition: color 0.3s;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(201,169,110,0.15);
+    transition: all 0.3s;
+  }
+  .contacto-link:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .contacto-link-icon {
+    font-size: 1.2rem;
+    color: var(--gold);
+    min-width: 24px;
+  }
+
+  .contacto-form-area {
+    background: var(--night-mid);
+    padding: 3rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: var(--night);
+    border: 1px solid rgba(138,154,176,0.2);
+    color: var(--sand);
+    padding: 0.8rem 1rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--gold);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .form-submit:hover { background: var(--gold); color: var(--night); }
+
+  /* FOOTER */
+  footer {
+    background: var(--night-mid);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--white);
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-social a {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-social a:hover { color: var(--gold); }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 2rem 0;
+    opacity: 0.5;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 2rem 2rem; min-height: auto; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 2rem; }
+    .metodo, .contacto { grid-template-columns: 1fr; gap: 3rem; }
+    .clases-grid, .testimonios-grid { grid-template-columns: 1fr; }
+    .testimonios-intro { grid-template-columns: 1fr; }
+    .metodo-features { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem; }
+  }
+
+  /* FADE IN ANIMATION */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Rocé Pixan</a>
+  <ul class="nav-links">
+    <li><a href="#metodo">El método</a></li>
+    <li><a href="#lapractica">La Práctica</a></li>
+    <li><a href="#ciclos">Ciclos</a></li>
+    <li><a href="#testimonios">Testimonios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Ashtanga Vinyasa Yoga · Clases en vivo</p>
+    <h1 class="hero-title">
+      Tu práctica,<br>
+      <em>desde donde estés</em>
+    </h1>
+    <p class="hero-sub">
+      Clases virtuales de Ashtanga Yoga en vivo, para todos los niveles. 
+      Sin importar si nunca pisaste un estudio. Sin importar en qué rincón del mundo estés.
+    </p>
+    <a href="#contacto" class="hero-cta">Empezar ahora</a>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-circle">
+      <span class="hero-symbol">ॐ</span>
+      <div class="hero-stat" style="top:12%;right:-8%;">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Online · en vivo</span>
+      </div>
+      <div class="hero-stat" style="bottom:18%;left:-8%;">
+        <span class="stat-num">Todo</span>
+        <span class="stat-label">nivel bienvenido</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section class="metodo" id="metodo">
+  <div class="fade-in">
+    <p class="section-label">El método</p>
+    <h2 class="section-title">Ashtanga Vinyasa<br><em>es un sistema, no una clase</em></h2>
+    <div class="divider"></div>
+    <div class="metodo-body">
+      <p>
+        Ashtanga Vinyasa es una práctica que te enseña a moverte y respirar al mismo tiempo. 
+        Cada postura prepara el cuerpo para la siguiente. El progreso es real, visible y tuyo.
+      </p>
+      <p>
+        La práctica online no es un reemplazo — es una forma completamente válida de aprender. 
+        Las alumnas y alumnos que llevan años practicando con Rocé a través de una pantalla 
+        son la prueba más honesta de eso.
+      </p>
+      <p>
+        No necesitás experiencia previa. Solo un lugar donde puedas moverte y ganas de empezar.
+      </p>
+    </div>
+  </div>
+  <div class="metodo-features fade-in">
+    <div class="feature-item">
+      <h4>Progresión real</h4>
+      <p>Cada clase construye sobre la anterior. Tu cuerpo aprende a través de la repetición.</p>
+    </div>
+    <div class="feature-item">
+      <h4>Clases en vivo</h4>
+      <p>Conexión en tiempo real. Rocé te ve, te guía y ajusta la práctica según lo que necesitás.</p>
+    </div>
+    <div class="feature-item">
+      <h4>Sin experiencia</h4>
+      <p>Las clases están diseñadas para quienes nunca hicieron yoga y también para quienes ya practican.</p>
+    </div>
+    <div class="feature-item">
+      <h4>Todo el mundo</h4>
+      <p>Alumnas y alumnos de Argentina, Europa, América Latina y más allá practican cada semana.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LA PRÁCTICA -->
+<section class="clases" id="lapractica">
+  <div class="fade-in">
+    <p class="section-label">El programa base</p>
+    <h2 class="section-title"><em>La Práctica</em></h2>
+    <p style="color:var(--muted);max-width:600px;margin-top:1rem;font-size:1rem;line-height:1.9;">
+      El punto de entrada y el hogar de quien practica con Rocé. Clases de Ashtanga Vinyasa en vivo, varias veces por semana, con un precio mensual fijo. Para quien nunca hizo yoga y para quien ya lleva tiempo en el camino.
+    </p>
+  </div>
+  <div class="clases-grid" style="margin-top:3rem;">
+    <div class="clase-card fade-in">
+      <span class="clase-tag">Cualquier nivel</span>
+      <h3 class="clase-name">Clases en vivo</h3>
+      <p class="clase-desc">
+        Varias clases por semana, en tiempo real por Zoom. Rocé te ve, te guía y adapta la práctica a lo que tu cuerpo necesita ese día.
+      </p>
+      <div class="clase-detail">
+        <span>📍 <strong>Online · Zoom en vivo</strong></span>
+        <span>📅 <strong>Varias veces por semana</strong></span>
+        <span>💳 <strong>Precio fijo mensual</strong></span>
+      </div>
+    </div>
+    <div class="clase-card fade-in">
+      <span class="clase-tag">Sin experiencia previa</span>
+      <h3 class="clase-name">Desde cero</h3>
+      <p class="clase-desc">
+        No necesitás saber nada de yoga para empezar. Las clases están diseñadas para que cualquier cuerpo pueda entrar y progresar a su propio ritmo.
+      </p>
+      <div class="clase-detail">
+        <span>🌍 <strong>Desde cualquier lugar del mundo</strong></span>
+        <span>📈 <strong>Progresión real semana a semana</strong></span>
+        <span>👥 <strong>Grupos pequeños</strong></span>
+      </div>
+    </div>
+    <div class="clase-card fade-in">
+      <span class="clase-tag">La promesa</span>
+      <h3 class="clase-name">Constancia guiada</h3>
+      <p class="clase-desc">
+        No es una clase suelta. Es una práctica que se construye. Los alumnos que llevan años con Rocé son la prueba más honesta de lo que pasa cuando se sostiene en el tiempo.
+      </p>
+      <div class="clase-detail">
+        <span>✦ <strong>Acompañamiento real en cada clase</strong></span>
+        <span>✦ <strong>Resultados visibles y sostenidos</strong></span>
+        <span>✦ <strong>Comunidad de practicantes</strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CICLOS -->
+<section class="testimonios" id="ciclos" style="background:var(--night-mid);">
+  <div class="testimonios-intro fade-in">
+    <div>
+      <p class="section-label">Experiencias especiales</p>
+      <h2 class="section-title">Los <em>ciclos</em></h2>
+    </div>
+    <p class="testimonios-body">
+      Más allá de La Práctica, Rocé ofrece ciclos específicos con foco profundo. Cada uno es una experiencia distinta, con fecha, intención y cupos limitados.
+    </p>
+  </div>
+  <div class="testimonios-grid">
+    <div class="testimonio-card fade-in" style="border-left-color:var(--gold);padding:2.5rem 2rem;">
+      <span class="clase-tag" style="display:block;margin-bottom:1rem;">Taller intensivo · Ciclo</span>
+      <h3 style="font-family:var(--serif);font-size:1.8rem;font-weight:400;color:var(--white);margin-bottom:1rem;line-height:1.1;"><em>La Mecánica</em></h3>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;">
+        Varias semanas de encuentros semanales dedicados a deconstruir una postura o familia de posturas. Entender el movimiento por dentro — no solo hacerlo, sino saber exactamente qué ocurre en el cuerpo y por qué.
+      </p>
+      <div class="clase-detail">
+        <span>🎯 <strong>Una postura o familia de posturas por ciclo</strong></span>
+        <span>📅 <strong>Encuentros semanales durante varias semanas</strong></span>
+        <span>👥 <strong>Abierto a cualquier practicante de Ashtanga</strong></span>
+      </div>
+    </div>
+    <div class="testimonio-card fade-in" style="border-left-color:var(--gold-light);padding:2.5rem 2rem;">
+      <span class="clase-tag" style="display:block;margin-bottom:1rem;">Encuentro único · En colaboración</span>
+      <h3 style="font-family:var(--serif);font-size:1.8rem;font-weight:400;color:var(--white);margin-bottom:1rem;line-height:1.1;"><em>La Somática</em></h3>
+      <p style="font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;">
+        Un encuentro especial donde Rocé y <strong style="color:var(--sand);font-weight:400;">Somatancia</strong> trabajan juntas para abordar el cuerpo desde dos perspectivas que se complementan — el movimiento estructurado del Ashtanga y la mirada somática que desbloquea lo que la técnica sola no alcanza.
+      </p>
+      <div class="clase-detail">
+        <span>✦ <strong>Encuentro único, irrepetible en ese formato</strong></span>
+        <span>👥 <strong>Abierto a cualquier practicante de yoga</strong></span>
+        <span>🤝 <strong>Con <a href="https://instagram.com/somatancia" target="_blank" style="color:var(--gold);text-decoration:none;">@somatancia</a></strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonios" id="testimonios">
+  <div class="testimonios-intro fade-in">
+    <div>
+      <p class="section-label">Testimonios</p>
+      <h2 class="section-title">Lo que pasa<br><em>en pantalla</em></h2>
+    </div>
+    <p class="testimonios-body">
+      Estas son las personas que llevan años practicando con Rocé desde sus casas. 
+      Sus palabras son más honestas que cualquier promesa.
+    </p>
+  </div>
+  <div class="testimonios-grid">
+    <div class="testimonio-card fade-in">
+      <p class="testimonio-text">
+        "Empecé sin saber nada de yoga. Hoy hago posturas que nunca imaginé 
+        posibles para mi cuerpo. La pantalla no fue ninguna barrera."
+      </p>
+      <p class="testimonio-author">— [Nombre del alumno/a]</p>
+      <p class="testimonio-location">[Ciudad, País]</p>
+    </div>
+    <div class="testimonio-card fade-in">
+      <p class="testimonio-text">
+        "Llevo [X] años practicando online con Rocé. El nivel al que llegué 
+        es difícil de explicar. Sus clases son las mejores que tuve."
+      </p>
+      <p class="testimonio-author">— [Nombre del alumno/a]</p>
+      <p class="testimonio-location">[Ciudad, País]</p>
+    </div>
+    <div class="testimonio-card fade-in">
+      <p class="testimonio-text">
+        "Pensé que el yoga por Zoom sería aburrido o poco efectivo. 
+        Me equivoqué completamente. Rocé transforma cada clase en algo único."
+      </p>
+      <p class="testimonio-author">— [Nombre del alumno/a]</p>
+      <p class="testimonio-location">[Ciudad, País]</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="fade-in">
+    <p class="section-label">Contacto</p>
+    <h2 class="section-title">¿Querés<br><em>empezar?</em></h2>
+    <div class="divider"></div>
+    <p class="contacto-body">
+      Escribile a Rocé directamente. Te cuenta los horarios disponibles, 
+      el valor de las clases y todo lo que necesitás saber para arrancar.
+    </p>
+    <div class="contacto-links">
+      <a href="https://wa.me/54XXXXXXXXXX" class="contacto-link" target="_blank">
+        <span class="contacto-link-icon">💬</span>
+        <span>WhatsApp — escribir ahora</span>
+      </a>
+      <a href="https://instagram.com/rocepixan" class="contacto-link" target="_blank">
+        <span class="contacto-link-icon">📷</span>
+        <span>Instagram — @rocepixan</span>
+      </a>
+    </div>
+  </div>
+  <div class="contacto-form-area fade-in" style="padding:0;background:transparent;overflow:hidden;">
+    <div style="border:1px solid rgba(201,169,110,0.15);overflow:hidden;">
+      <iframe 
+        src="https://docs.google.com/forms/d/e/1FAIpQLSf5YKPoIbAHH0mEA-NWJI5dk2TVYgEl23BZuoHx9JId7r_-tA/viewform?embedded=true" 
+        width="100%" 
+        height="780" 
+        frameborder="0" 
+        marginheight="0" 
+        marginwidth="0"
+        style="display:block;background:var(--night-mid);">
+        Cargando…
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Rocé Pixan</span>
+  <span class="footer-copy">© 2025 · Ashtanga Yoga · San Isidro, Argentina</span>
+  <div class="footer-social">
+    <a href="https://instagram.com/rocepixan" target="_blank">Instagram</a>
+    <a href="https://facebook.com/roceyoga" target="_blank">Facebook</a>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  function handleForm(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✓ Mensaje enviado';
+    btn.style.background = 'var(--gold)';
+    btn.style.color = 'var(--night)';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>
